@@ -89,6 +89,7 @@ npm run dev
 ### 🔮 Improvements for Future
 - **Use MERN Stack** – Given more time, I would integrate a **MongoDB, Express, React, and Node.js (MERN)** backend for real **CRUD operations**.  
 - **Pagination Support** – Implement pagination to improve performance when handling large datasets.  
-- **Enhanced UI** – Improve UI/UX with animations and additional interactive components.  
+- **Enhanced UI** – Improve UI/UX with animations and additional interactive components. 
+- **DarkMode** - I would i worked on the dark mode and light mode.
 
 
