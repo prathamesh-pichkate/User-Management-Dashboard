@@ -49,7 +49,7 @@ The goal of this project is to develop a simple web application where users can 
 Ensure you have the following installed:
 
 - **Node.js** (>= 16.x)
-- **npm** or **yarn**
+- **npm** 
 
 ### 📥 Installation
 
@@ -58,3 +58,22 @@ Clone the repository:
 ```sh
 git clone https://github.com/your-username/user-management-dashboard.git
 cd user-management-dashboard
+```
+
+Move to the Frontend Folder:
+
+```sh
+cd frontend
+```
+
+Install the packages and run
+
+```sh
+npm install
+```
+Run App
+
+```sh
+npm run dev
+```
+
