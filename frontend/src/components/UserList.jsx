@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const UserList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showMoreUsers, setShowMoreUsers] = useState(false);  // State for toggling users
   const { users, loading } = useSelector((state) => state.users);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,7 +41,7 @@ const UserList = () => {
         await axios.delete(`https://jsonplaceholder.typicode.com/users/${userToDelete}`);
         dispatch(deleteUser(userToDelete));
         toast.success('User deleted successfully');
-        setIsModalOpen(false);  // Close modal after deletion
+        setIsModalOpen(false); 
       } catch (error) {
         toast.error('Failed to delete user');
       }
@@ -58,6 +59,9 @@ const UserList = () => {
   };
 
   if (loading) return <div className="text-center py-4">Loading...</div>;
+
+  // Determine which users to display (either 10 or all)
+  const usersToDisplay = showMoreUsers ? users : users.slice(0, 8);
 
   return (
     <div className="p-6 mx-auto lg:w-3/4">
@@ -85,7 +89,7 @@ const UserList = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => {
+            {usersToDisplay.map((user) => {
               const [firstName, ...lastNameParts] = user.name.split(' ');
               const lastName = lastNameParts.join(' ') || 'N/A';
 
@@ -118,6 +122,18 @@ const UserList = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Show More Button */}
+      {users.length > 8 && (
+        <div className="flex justify-end mt-4">
+          <button
+            onClick={() => setShowMoreUsers((prev) => !prev)}
+            className="text-blue-600 hover:underline"
+          >
+            {showMoreUsers ? 'Show Less' : 'Show More...'}
+          </button>
+        </div>
+      )}
 
       {/* Modal */}
       {isModalOpen && (
