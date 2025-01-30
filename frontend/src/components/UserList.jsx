@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUsers, deleteUser, setLoading } from '../store/userSlice';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 const UserList = () => {
   const dispatch = useDispatch();
-  const { users, loading, error } = useSelector((state) => state.users);
+  const navigate = useNavigate();
+  const { users, loading } = useSelector((state) => state.users);
+
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -15,7 +19,6 @@ const UserList = () => {
         const response = await axios.get('https://jsonplaceholder.typicode.com/users');
         dispatch(setUsers(response.data));
       } catch (error) {
-        dispatch(setError(error.message));
         toast.error('Failed to fetch users');
       } finally {
         dispatch(setLoading(false));
@@ -25,7 +28,12 @@ const UserList = () => {
     fetchUsers();
   }, [dispatch]);
 
+  const handleEdit = (id) => {
+    navigate(`/edit/${id}`);
+  };
+
   const handleDelete = async (id) => {
+  
     try {
       await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
       dispatch(deleteUser(id));
@@ -34,35 +42,70 @@ const UserList = () => {
       toast.error('Failed to delete user');
     }
   };
-
-  if (loading) return <div>Loading...</div>;
+  
+  if (loading) return <div className="text-center py-4">Loading...</div>;
 
   return (
-    <div>
-      <h2>User List</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>
-                <button onClick={() => handleDelete(user.id)}>Delete</button>
-                <button>Edit</button>
-              </td>
+    <div className="p-6 mx-auto lg:w-3/4">
+      <div className="flex justify-between items-center my-6">
+        <h2 className="text-2xl font-bold text-blue-600">Users</h2>
+        <button
+          className="px-5 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md transition-all duration-300 hover:bg-blue-700 hover:shadow-lg active:scale-95"
+          onClick={() => navigate('/add')}
+        >
+          + Add User
+        </button>
+      </div>
+
+      <div className="overflow-x-auto shadow-md rounded-lg">
+        <table className="w-full text-sm text-left text-gray-500">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-100">
+            <tr>
+              <th className="px-6 py-3">ID</th>
+              <th className="px-6 py-3">First Name</th>
+              <th className="px-6 py-3">Last Name</th>
+              <th className="px-6 py-3">Email</th>
+              <th className="px-6 py-3">Company</th>
+              <th className="px-6 py-3">Edit</th>
+              <th className="px-6 py-3">Delete</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map((user) => {
+              const [firstName, ...lastNameParts] = user.name.split(' ');
+              const lastName = lastNameParts.join(' ') || 'N/A';
+
+              return (
+                <tr key={user.id} className="border-b bg-white hover:bg-gray-50">
+                  <td className="px-6 py-4">{user.id}</td>
+                  <td className="px-6 py-4">{firstName}</td>
+                  <td className="px-6 py-4">{lastName}</td>
+                  <td className="px-6 py-4">{user.email}</td>
+                  <td className="px-6 py-4">{user.company?.name || 'N/A'}</td>
+                  <td className="px-6 py-4">
+                    <button
+                      onClick={() => handleEdit(user.id)}
+                      className="text-purple-600 hover:underline"
+                    >
+                      Edit
+                    </button>
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      onClick={() => {
+                        handleDelete(user.id);
+                      }}
+                      className="text-red-600 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
