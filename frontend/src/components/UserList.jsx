@@ -83,7 +83,7 @@ const UserList = () => {
               <th className="px-6 py-3">First Name</th>
               <th className="px-6 py-3">Last Name</th>
               <th className="px-6 py-3">Email</th>
-              <th className="px-6 py-3">Company</th>
+              <th className="px-6 py-3">Department</th>
               <th className="px-6 py-3">Edit</th>
               <th className="px-6 py-3">Delete</th>
             </tr>
