@@ -56,7 +56,7 @@ Ensure you have the following installed:
 Clone the repository:
 
 ```sh
-git clone https://github.com/your-username/user-management-dashboard.git
+[git clone https://github.com/your-username/user-management-dashboard.git](https://github.com/prathamesh-pichkate/User-Management-Dashboard.git)
 cd user-management-dashboard
 ```
 
