@@ -12,6 +12,7 @@ The goal of this project is to develop a simple web application where users can 
 - **Flowbite** – A Tailwind-based component library for UI enhancements.
 - **Axios** – For making HTTP requests to the backend API.
 - **React Router DOM** – For handling navigation within the app.
+- **React Toastify** - For notification
 
 ---
 
@@ -26,7 +27,6 @@ The goal of this project is to develop a simple web application where users can 
 
 ### 🔹 Edit User
 - Allows users to edit existing user details.
-- Updates data via a **PUT** request.
 
 ### 🔹 Delete User
 - Deletes a user via a **DELETE** request to `/users/:id`.
