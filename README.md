@@ -77,3 +77,18 @@ Run App
 npm run dev
 ```
 
+---
+
+## ⚠️ Challenges & Improvements
+
+### 🛠️ Challenges Faced
+- **React 19 Updates** – Faced challenges adapting to **React 19** due to breaking changes and updated APIs.  
+- **Flowbite Compatibility** – Encountered issues with **Flowbite** as several updates changed the component structures.  
+- **Mock API Limitations** – Since **JSONPlaceholder** does not persist changes, managing state properly to simulate add/edit/delete operations was challenging.  
+
+### 🔮 Improvements for Future
+- **Use MERN Stack** – Given more time, I would integrate a **MongoDB, Express, React, and Node.js (MERN)** backend for real **CRUD operations**.  
+- **Pagination Support** – Implement pagination to improve performance when handling large datasets.  
+- **Enhanced UI** – Improve UI/UX with animations and additional interactive components.  
+
+
